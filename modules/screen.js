@@ -10,13 +10,13 @@ var DISPLAY_TEXT_ADDR = 0x3e;
 
 let lcdInput = { name: 'TEST'};
 
-function setRGB(i2c1, r, g, b) {
+function setRGB(i2c1, rgb) {
     i2c1.writeByteSync(DISPLAY_RGB_ADDR,0,0);
     i2c1.writeByteSync(DISPLAY_RGB_ADDR,1,0);
     i2c1.writeByteSync(DISPLAY_RGB_ADDR,0x08,0xaa);
-    i2c1.writeByteSync(DISPLAY_RGB_ADDR,4,r);
-    i2c1.writeByteSync(DISPLAY_RGB_ADDR,3,g);
-    i2c1.writeByteSync(DISPLAY_RGB_ADDR,2,b)
+    i2c1.writeByteSync(DISPLAY_RGB_ADDR,4,rgb[0]);
+    i2c1.writeByteSync(DISPLAY_RGB_ADDR,3,rgb[1]);
+    i2c1.writeByteSync(DISPLAY_RGB_ADDR,2,rgb[2]);
 }
 
 function textCommand(i2c1, cmd) {
@@ -47,9 +47,23 @@ function setText(i2c1, text) {
 }
 
 module.exports.post = function (req, res) {
+    const colors = {
+        red: [255, 0, 0],
+        green: [0, 255, 0],
+        blue: [0, 0, 255]
+    };
+
+    var messageArr = req.body.message.split(' ');
+    var color = Object.keys(colors).find(r => messageArr.indexOf(r));
+    var rgb = colors.red;
+
+    if (Object.keys(colors).indexOf(color) > -1) {
+        rgb = colors[color];
+    }
+
     var i2c1 = i2c.openSync(1);
     setText(i2c1, req.body.message);
-    setRGB(i2c1, 55, 55, 255);
+    setRGB(i2c1, rgb);
     i2c1.closeSync();
 
     res.send(200, { message: req.body.message });

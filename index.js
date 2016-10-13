@@ -6,6 +6,7 @@ const restify = require('restify'),
     screen = require('./modules/screen');
 
 var server = restify.createServer();
+server.use(restify.bodyParser());
 
 server.use(
     function crossOrigin(req,res,next){
