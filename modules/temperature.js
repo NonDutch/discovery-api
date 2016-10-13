@@ -35,14 +35,14 @@ temperatureBoard.init();
 
 
 module.exports.get = function (req, res) {
-    res.send(200, req.temperature);
+    res.send(200, temperature);
 };
 
 
 
 
 function onExit(err) {
-    board.close();
+    temperatureBoard.close();
     process.removeAllListeners();
     process.exit();
     if (typeof err != 'undefined')
