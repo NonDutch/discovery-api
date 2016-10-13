@@ -31,7 +31,7 @@ function setText(i2c1, text) {
     sleep.usleep(50000);
     var count = 0;
     var row = 0;
-    for(var i = 0, len = text.length; i &lt; len; i++) {
+    for(var i = 0, len = text.length; i < len; i++) {
         if(text[i] === '\n' || count === 16) {
             count = 0;
             row ++;
