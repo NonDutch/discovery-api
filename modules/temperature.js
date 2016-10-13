@@ -13,17 +13,17 @@ module.exports = function (req, res, next) {
     });
     board.init();
 
-    function onInit (res) {
-        if (res) {
+    function onInit (result) {
+        if (result) {
             var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
             dhtSensor.watch(500);
 
-            dhtSensor.on('change', function(res) {
-                res.send(200, res);
+            dhtSensor.on('change', function(temperature) {
+                res.send(200, temperature);
                 board.close();
             });
         } else {
-            console.log(`${res} is shitty empty`);
+            console.log(`${result} is shitty empty`);
         }
     }
 };
