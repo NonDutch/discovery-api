@@ -20,7 +20,7 @@ let board = new Board({
         onError: err => res.send(500, err),
         onInit: onInit
     }),
-    temperature = board.read();
+    temperature;
 
 function onInit (result) {
     console.log('onInit called!!!' + time());
