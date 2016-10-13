@@ -45,37 +45,14 @@ function setText(i2c1, text) {
         i2c1.writeByteSync(DISPLAY_TEXT_ADDR, 0x40, text[i].charCodeAt(0));
     }
 }
-//
-// let screenBoard = new Board({
-//     debug: true,
-//     onError: function(err) {
-//         console.log('Something wrong just happened');
-//         console.log(err)
-//     },
-//     onInit: onInit
-// });
-//
-// function onInit (result) {
-//     if (result) {
-//         var i2c1 = i2c.openSync(1);
-//         setText(i2c1, 'Node is running');
-//         setRGB(i2c1, 55, 55, 255);
-//         i2c1.closeSync();
-//
-//     } else {
-//         console.log(`Result: ${result}`);
-//     }
-// }
-//
-// screenBoard.init();
 
 module.exports.post = function (req, res) {
     var i2c1 = i2c.openSync(1);
-    setText(i2c1, 'Post was successfull');
+    setText(i2c1, req.body.message);
     setRGB(i2c1, 55, 55, 255);
     i2c1.closeSync();
 
-    res.send(200, { name: 'TEST'});
+    res.send(200, { message: req.body.message });
 };
 
 
