@@ -20,15 +20,16 @@ let board = new Board({
         onError: err => res.send(500, err),
         onInit: onInit
     }),
-    temperature;
+    temperature = [];
 
 function onInit (result) {
-    console.log('onInit called!!!' + Date());
+    console.log(`Result: '${result}' onInit called!!! Timestamp: ${Date()}`);
     if (result) {
         var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
 
         dhtSensor.on('change', function(sensorData) {
             temperature = sensorData;
+            console.log('Temperature changed', sensorData);
         });
 
     } else {
