@@ -54,7 +54,8 @@ module.exports.post = function (req, res) {
     };
 
     var messageArr = req.body.message.split(' ');
-    var color = Object.keys(colors).find(r => messageArr.indexOf(r));
+
+    var color = Object.keys(colors).find(r => messageArr.indexOf(r) > -1);
     var rgb = colors.red;
 
     if (Object.keys(colors).indexOf(color) > -1) {
