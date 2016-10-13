@@ -1,3 +1,5 @@
+'use strict';
+
 const restify = require('restify'),
     GrovePi = require('node-grovepi').GrovePi,
     Commands = GrovePi.commands,
