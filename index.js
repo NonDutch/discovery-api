@@ -23,7 +23,7 @@ let board = new Board({
     temperature;
 
 function onInit (result) {
-    console.log('onInit called!!!' + time());
+    console.log('onInit called!!!' + Date());
     if (result) {
         var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
 
