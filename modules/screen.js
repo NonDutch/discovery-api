@@ -58,7 +58,7 @@ let screenBoard = new Board({
 function onInit (result) {
     if (result) {
         var i2c1 = i2c.openSync(1);
-        setText(i2c1, 'Memet is een\nEINDBAAS');
+        setText(i2c1, 'Node is running');
         setRGB(i2c1, 55, 55, 255);
         i2c1.closeSync();
 
@@ -70,6 +70,11 @@ function onInit (result) {
 screenBoard.init();
 
 module.exports.post = function (req, res) {
+    var i2c1 = i2c.openSync(1);
+    setText(i2c1, 'Post was successfull');
+    setRGB(i2c1, 55, 55, 255);
+    i2c1.closeSync();
+
     res.send(200, { name: 'TEST'});
 };
 
