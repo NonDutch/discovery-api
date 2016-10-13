@@ -16,9 +16,9 @@ module.exports = function (req, res, next) {
     function onInit (res) {
         if (res) {
             var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
+            dhtSensor.watch(500);
 
             dhtSensor.on('change', function(res) {
-                console.log('Temperature: ', res);
                 res.send(200, res);
                 board.close();
             });
@@ -27,3 +27,14 @@ module.exports = function (req, res, next) {
         }
     }
 };
+
+//
+// var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
+//
+// console.log('GrovePi Version :: ' + board.version())
+//
+// dhtSensor.on('change', function(res) {
+//     console.log('Temperature: ', res);
+//
+// });
+//
