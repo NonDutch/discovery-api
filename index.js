@@ -15,22 +15,23 @@ var server = restify.createServer();
  ========================================================= */
 
 
-let board = new Board({
+let temperatureBoard = new Board({
         debug: true,
         onError: err => res.send(500, err),
         onInit: onInit
     }),
-    temperature = [];
+    temperature = {};
 
 function onInit (result) {
-    console.log(`Result: '${result}' onInit called!!! Timestamp: ${Date()}`);
     if (result) {
         var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
         dhtSensor.watch(500);
 
         dhtSensor.on('change', function(sensorData) {
-            temperature = sensorData;
-            console.log('Temperature changed', sensorData);
+            temperature = {
+                temperature: sensorData[0],
+                humidity: sensorData[1]
+            };
         });
 
     } else {
@@ -38,12 +39,8 @@ function onInit (result) {
     }
 }
 
-board.init();
+temperatureBoard.init();
 
-
-function getTemperature (req, res, next) {
-    res.send(200, temperature);
-}
 
 
 /* ========================================================
@@ -52,7 +49,7 @@ function getTemperature (req, res, next) {
 
 server.get('/', index);
 server.post('/light/:color', switchLight);
-server.get('/temperature', getTemperature);
+server.get('/temperature', (req, res) => { res.send(200, temperature) });
 
 
 /* ========================================================
