@@ -1,0 +1,19 @@
+{
+  "name": "discovery-api",
+  "version": "1.0.0",
+  "description": "Sensor array API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NonDutch/discovery-api.git"
+  },
+  "author": "David, Dean, Antoni and João",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NonDutch/discovery-api/issues"
+  },
+  "homepage": "https://github.com/NonDutch/discovery-api#readme"
+}
