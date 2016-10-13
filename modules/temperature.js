@@ -18,12 +18,22 @@ module.exports = function (req, res, next) {
             var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
             dhtSensor.watch(500);
 
-            dhtSensor.on('change', function(temperature) {
-                res.send(200, temperature);
-                board.close();
-            });
+            let temperature = dhtSensor.read();
+
+            board.close();
+            res.send(200, temperature);
+
+            process.removeAllListeners();
+            process.exit();
+
+            // dhtSensor.on('change', function(temperature) {
+            //     board.close();
+            //     // process.removeAllListeners();
+            //     // process.exit();
+            //     res.send(200, temperature);
+            // });
         } else {
-            console.log(`${result} is shitty empty`);
+            console.log(`Result: ${result}`);
         }
     }
 };
