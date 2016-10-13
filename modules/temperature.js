@@ -1,41 +1,33 @@
 'use strict';
+const GrovePi = require('node-grovepi').GrovePi,
+    Commands = GrovePi.commands,
+    Board = GrovePi.board,
+    DHTDigitalSensor = GrovePi.sensors.DHTDigital;
 
-module.exports = function (req, res, next) {
-    const GrovePi = require('node-grovepi').GrovePi,
-        Commands = GrovePi.commands,
-        Board = GrovePi.board,
-        DHTDigitalSensor = GrovePi.sensors.DHTDigital;
-
-    let board = new Board({
+let board = new Board({
         debug: true,
         onError: err => res.send(500, err),
         onInit: onInit
-    });
-    board.init();
+    }),
+    temperature = board.read()
 
-    function onInit (result) {
-        if (result) {
-            var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
-            dhtSensor.watch(500);
+function onInit (result) {
+    if (result) {
+        var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
 
-            let temperature = dhtSensor.read();
+        dhtSensor.on('change', function(sensorData) {
+            temperature = sensorData;
+        });
 
-            board.close();
-            res.send(200, temperature);
-
-            process.removeAllListeners();
-            process.exit();
-
-            // dhtSensor.on('change', function(temperature) {
-            //     board.close();
-            //     // process.removeAllListeners();
-            //     // process.exit();
-            //     res.send(200, temperature);
-            // });
-        } else {
-            console.log(`Result: ${result}`);
-        }
+    } else {
+        console.log(`Result: ${result}`);
     }
+}
+
+board.init();
+
+module.exports = function (req, res, next) {
+    res.send(200, temperature);
 };
 
 //
@@ -48,3 +40,14 @@ module.exports = function (req, res, next) {
 //
 // });
 //
+
+function onExit(err) {
+    board.close()
+    process.removeAllListeners()
+    process.exit()
+    if (typeof err != 'undefined')
+        console.log(err)
+}
+
+// catches ctrl+c event
+process.on('SIGINT', onExit)
