@@ -26,8 +26,8 @@ function onInit (result) {
     console.log(`Result: '${result}' onInit called!!! Timestamp: ${Date()}`);
     if (result) {
         var dhtSensor = new DHTDigitalSensor(7, DHTDigitalSensor.VERSION.DHT11, DHTDigitalSensor.CELSIUS);
-        board.watch(500);
-        
+        dhtSensor.watch(500);
+
         dhtSensor.on('change', function(sensorData) {
             temperature = sensorData;
             console.log('Temperature changed', sensorData);
