@@ -2,7 +2,8 @@
 
 const restify = require('restify'),
     switchLight = require('./modules/switch-light'),
-    temperatureData = require('./modules/temperature');
+    temperatureData = require('./modules/temperature'),
+    screen = require('./modules/screen');
 
 var server = restify.createServer();
 
@@ -21,6 +22,7 @@ server.use(
 server.get('/', index);
 server.post('/light/:color', switchLight);
 server.get('/temperature', temperatureData.get);
+server.post('/screen', screen.post);
 
 
 /* ========================================================

@@ -179,7 +179,7 @@ http-signature@^0.11.0:
     assert-plus "^0.1.5"
     ctype "0.5.3"
 
-i2c-bus@1.*:
+i2c-bus, i2c-bus@1.*:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/i2c-bus/-/i2c-bus-1.1.2.tgz#4ca3ce5c9711e74d466a07f52cba54374b7364d7"
   dependencies:
@@ -383,6 +383,12 @@ select-hose@^2.0.0:
 semver@^4.3.3:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
+sleep:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/sleep/-/sleep-4.0.0.tgz#8d465f9671cbef89d5688150ff2edf9c9e6a9879"
+  dependencies:
+    nan ">=2.0.0"
 
 sleep@3.*:
   version "3.0.1"

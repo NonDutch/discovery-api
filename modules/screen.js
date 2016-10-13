@@ -1,8 +1,9 @@
-var i2c = require('i2c-bus');
-var sleep = require('sleep');
-var GrovePi = require('node-grovepi').GrovePi;
+'use strict';
 
-var Board = GrovePi.board;
+const i2c = require('i2c-bus'),
+    sleep = require('sleep'),
+    GrovePi = require('node-grovepi').GrovePi,
+    Board = GrovePi.board;
 
 var DISPLAY_RGB_ADDR = 0x62;
 var DISPLAY_TEXT_ADDR = 0x3e;
@@ -56,8 +57,6 @@ let screenBoard = new Board({
 
 function onInit (result) {
     if (result) {
-        console.log('GrovePi Version :: ' + screenBoard.version());
-
         var i2c1 = i2c.openSync(1);
         setText(i2c1, 'Memet is een\nEINDBAAS');
         setRGB(i2c1, 55, 55, 255);
