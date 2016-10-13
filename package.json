@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/NonDutch/discovery-api/issues"
   },
-  "homepage": "https://github.com/NonDutch/discovery-api#readme"
+  "homepage": "https://github.com/NonDutch/discovery-api#readme",
+  "dependencies": {
+    "node-grovepi": "^2.0.9",
+    "restify": "^4.1.1"
+  }
 }
