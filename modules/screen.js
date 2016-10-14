@@ -48,6 +48,7 @@ function setText(i2c1, text) {
 
 module.exports.post = function (req, res) {
     const colors = {
+        white: [0, 0, 0],
         red: [255, 0, 0],
         green: [0, 255, 0],
         blue: [0, 0, 255]
